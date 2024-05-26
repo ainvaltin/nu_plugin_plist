@@ -3,7 +3,7 @@
 [Nushell](https://www.nushell.sh/)
 [Plugin](https://www.nushell.sh/contributor-book/plugins.html) 
 written in [Go](https://go.dev/) using 
-[nu-plugin package](https://github.com/ainvaltin/nu-plugin-plist).
+[nu-plugin package](https://github.com/ainvaltin/nu-plugin).
 
 ## Implements commands
 
