@@ -15,7 +15,7 @@ func toPlist() *nu.Command {
 		Sig: nu.PluginSignature{
 			Name:             "to plist",
 			Category:         "Formats",
-			Usage:            `Convert Nutshell Value to property list.`,
+			Usage:            `Convert Nushell Value to property list.`,
 			SearchTerms:      []string{"plist", "GNU Step", "Open Step", "xml"},
 			InputOutputTypes: [][]string{{"Any", "Binary"}, {"Any", "String"}},
 			Named: []nu.Flag{
