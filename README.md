@@ -16,7 +16,7 @@ Latest version is for Nushell version `0.93.0`.
 
 To install it you need to have [Go installed](https://go.dev/dl/), then run
 ```sh
-go install github.com/ainvaltin/nu-plugin-plist@latest
+go install github.com/ainvaltin/nu_plugin_plist@latest
 ```
 This creates the `nu_plugin_plist` binary in your `GOBIN` directory:
 ```txt
