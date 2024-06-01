@@ -12,7 +12,7 @@ import (
 
 func fromPlist() *nu.Command {
 	return &nu.Command{
-		Sig: nu.PluginSignature{
+		Signature: nu.PluginSignature{
 			Name:                 "from plist",
 			Category:             "Formats",
 			SearchTerms:          []string{"plist", "GNU Step", "Open Step", "xml"},
@@ -20,7 +20,7 @@ func fromPlist() *nu.Command {
 			Usage:                `Convert from 'property list' format to Nushell Value.`,
 			AllowMissingExamples: true,
 		},
-		Exm: nu.Examples{
+		Examples: nu.Examples{
 			{
 				Description: `Convert an Open Step array to list of Nu values`,
 				Example:     `'(10,foo,)' | from plist`,
@@ -31,8 +31,8 @@ func fromPlist() *nu.Command {
 	}
 }
 
-func fromPlistHandler(ctx context.Context, exec *nu.ExecCommand) error {
-	switch in := exec.Input.(type) {
+func fromPlistHandler(ctx context.Context, call *nu.ExecCommand) error {
+	switch in := call.Input.(type) {
 	case nu.Empty:
 		return nil
 	case nu.Value:
@@ -53,7 +53,7 @@ func fromPlistHandler(ctx context.Context, exec *nu.ExecCommand) error {
 		if err != nil {
 			return fmt.Errorf("converting to Value: %w", err)
 		}
-		return exec.ReturnValue(ctx, rv)
+		return call.ReturnValue(ctx, rv)
 	case io.Reader:
 		// decoder wants io.ReadSeeker so we need to read to buf.
 		// could read just enough that the decoder can detect the
@@ -70,9 +70,9 @@ func fromPlistHandler(ctx context.Context, exec *nu.ExecCommand) error {
 		if err != nil {
 			return fmt.Errorf("converting to Value: %w", err)
 		}
-		return exec.ReturnValue(ctx, rv)
+		return call.ReturnValue(ctx, rv)
 	default:
-		return fmt.Errorf("unsupported input type %T", exec.Input)
+		return fmt.Errorf("unsupported input type %T", call.Input)
 	}
 }
 

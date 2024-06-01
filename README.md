@@ -19,11 +19,10 @@ To install it you need to have [Go installed](https://go.dev/dl/), then run
 go install github.com/ainvaltin/nu_plugin_plist@latest
 ```
 This creates the `nu_plugin_plist` binary in your `GOBIN` directory:
-```txt
-Executables are installed in the directory named by the GOBIN environment
+
+> Executables are installed in the directory named by the GOBIN environment
 variable, which defaults to $GOPATH/bin or $HOME/go/bin if the GOPATH
 environment variable is not set.
-```
 
 Locate the binary and follow instructions on 
 [Downloading and installing a plugin](https://www.nushell.sh/book/plugins.html#downloading-and-installing-a-plugin)

@@ -12,7 +12,7 @@ import (
 
 func decodeBase85() *nu.Command {
 	return &nu.Command{
-		Sig: nu.PluginSignature{
+		Signature: nu.PluginSignature{
 			Name:     "decode base85",
 			Category: "Hash",
 			Usage:    `Decode Ascii85, also called Base85.`,
@@ -25,21 +25,21 @@ func decodeBase85() *nu.Command {
 			},*/
 			AllowMissingExamples: true,
 		},
-		Exm: nu.Examples{
+		Examples: nu.Examples{
 			{Description: `Decode base85 data`, Example: `'F)Po,+Cno&@/' | decode base85`, Result: &nu.Value{Value: `some data`}},
 		},
 		OnRun: decodeBase85Handler,
 	}
 }
 
-func decodeBase85Handler(ctx context.Context, exec *nu.ExecCommand) error {
-	out, err := exec.ReturnRawStream(ctx)
+func decodeBase85Handler(ctx context.Context, call *nu.ExecCommand) error {
+	out, err := call.ReturnRawStream(ctx)
 	if err != nil {
 		return fmt.Errorf("creating response stream: %w", err)
 	}
 	defer out.Close()
 
-	switch in := exec.Input.(type) {
+	switch in := call.Input.(type) {
 	case nu.Empty:
 		return nil
 	case nu.Value:
@@ -58,6 +58,6 @@ func decodeBase85Handler(ctx context.Context, exec *nu.ExecCommand) error {
 		_, err = io.Copy(out, ascii85.NewDecoder(in))
 		return err
 	default:
-		return fmt.Errorf("unsupported input type %T", exec.Input)
+		return fmt.Errorf("unsupported input type %T", call.Input)
 	}
 }

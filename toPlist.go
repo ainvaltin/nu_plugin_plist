@@ -12,7 +12,7 @@ import (
 
 func toPlist() *nu.Command {
 	cmd := &nu.Command{
-		Sig: nu.PluginSignature{
+		Signature: nu.PluginSignature{
 			Name:             "to plist",
 			Category:         "Formats",
 			Usage:            `Convert Nushell Value to property list.`,
@@ -24,7 +24,7 @@ func toPlist() *nu.Command {
 			},
 			AllowMissingExamples: true,
 		},
-		Exm: nu.Examples{
+		Examples: nu.Examples{
 			{Description: `Convert an record to GNU Step format`, Example: `{foo: 10} | to plist -f gnu`, Result: &nu.Value{Value: `{foo=<*I10>;}`}},
 			{Description: `Convert an array to Open Step format`, Example: `[10 foo] | to plist -f open`, Result: &nu.Value{Value: `(10,foo,)`}},
 		},
@@ -33,15 +33,15 @@ func toPlist() *nu.Command {
 	return cmd
 }
 
-func toPlistHandler(ctx context.Context, exec *nu.ExecCommand) error {
-	switch in := exec.Input.(type) {
+func toPlistHandler(ctx context.Context, call *nu.ExecCommand) error {
+	switch in := call.Input.(type) {
 	case nu.Empty:
 		return nil
 	case nu.Value:
-		outFmt := plistFormat(exec.Call.Named)
+		outFmt := plistFormat(call.Named)
 		var buf []byte
 		var err error
-		if prettyFormat(exec.Call.Named) && outFmt != plist.BinaryFormat {
+		if prettyFormat(call.Named) && outFmt != plist.BinaryFormat {
 			buf, err = plist.MarshalIndent(fromValue(in), outFmt, "\t")
 		} else {
 			buf, err = plist.Marshal(fromValue(in), outFmt)
@@ -50,11 +50,11 @@ func toPlistHandler(ctx context.Context, exec *nu.ExecCommand) error {
 			return fmt.Errorf("encoding %T as plist: %w", in.Value, err)
 		}
 		if outFmt == plist.BinaryFormat {
-			return exec.ReturnValue(ctx, nu.Value{Value: buf})
+			return call.ReturnValue(ctx, nu.Value{Value: buf})
 		}
-		return exec.ReturnValue(ctx, nu.Value{Value: string(buf)})
+		return call.ReturnValue(ctx, nu.Value{Value: string(buf)})
 	default:
-		return fmt.Errorf("unsupported input type %T", exec.Input)
+		return fmt.Errorf("unsupported input type %T", call.Input)
 	}
 }
 
