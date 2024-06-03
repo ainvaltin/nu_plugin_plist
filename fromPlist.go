@@ -33,7 +33,7 @@ func fromPlist() *nu.Command {
 
 func fromPlistHandler(ctx context.Context, call *nu.ExecCommand) error {
 	switch in := call.Input.(type) {
-	case nu.Empty:
+	case nil:
 		return nil
 	case nu.Value:
 		var buf []byte

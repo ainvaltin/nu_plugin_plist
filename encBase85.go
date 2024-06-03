@@ -33,7 +33,7 @@ func encodeBase85() *nu.Command {
 }
 
 func encodeBase85Handler(ctx context.Context, call *nu.ExecCommand) error {
-	out, err := call.ReturnRawStream(ctx)
+	out, err := call.ReturnRawStream(ctx, nu.StringStream())
 	if err != nil {
 		return fmt.Errorf("creating response stream: %w", err)
 	}
@@ -43,7 +43,7 @@ func encodeBase85Handler(ctx context.Context, call *nu.ExecCommand) error {
 	defer enc.Close()
 
 	switch in := call.Input.(type) {
-	case nu.Empty:
+	case nil:
 		return nil
 	case nu.Value:
 		var buf []byte

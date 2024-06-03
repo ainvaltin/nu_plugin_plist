@@ -35,7 +35,7 @@ func toPlist() *nu.Command {
 
 func toPlistHandler(ctx context.Context, call *nu.ExecCommand) error {
 	switch in := call.Input.(type) {
-	case nu.Empty:
+	case nil:
 		return nil
 	case nu.Value:
 		outFmt := plistFormat(call.Named)
