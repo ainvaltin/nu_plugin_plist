@@ -20,3 +20,6 @@ nu_plugin_plist
 
 # Go workspace file
 go.work
+
+*.msgpack
+log.txt

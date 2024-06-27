@@ -19,6 +19,7 @@ func main() {
 			encodeBase85(),
 			decodeBase85(),
 		},
+		"0.0.1",
 		nil,
 	)
 	if err != nil {

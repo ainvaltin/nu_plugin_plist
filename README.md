@@ -12,7 +12,7 @@ written in [Go](https://go.dev/) using
 
 ## Installation
 
-Latest version is for Nushell version `0.93.0`.
+Latest version is for Nushell version `0.95.0`.
 
 To install it you need to have [Go installed](https://go.dev/dl/), then run
 ```sh

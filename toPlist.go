@@ -34,28 +34,52 @@ func toPlist() *nu.Command {
 }
 
 func toPlistHandler(ctx context.Context, call *nu.ExecCommand) error {
+	outFmt := plistFormat(call.Named)
+	prettyFmt := prettyFormat(call.Named)
+
 	switch in := call.Input.(type) {
 	case nil:
 		return nil
 	case nu.Value:
-		outFmt := plistFormat(call.Named)
-		var buf []byte
-		var err error
-		if prettyFormat(call.Named) && outFmt != plist.BinaryFormat {
-			buf, err = plist.MarshalIndent(fromValue(in), outFmt, "\t")
-		} else {
-			buf, err = plist.Marshal(fromValue(in), outFmt)
-		}
+		v, err := toPlistValue(in, outFmt, prettyFmt)
 		if err != nil {
-			return fmt.Errorf("encoding %T as plist: %w", in.Value, err)
+			return err
 		}
-		if outFmt == plist.BinaryFormat {
-			return call.ReturnValue(ctx, nu.Value{Value: buf})
+		return call.ReturnValue(ctx, v)
+	case <-chan nu.Value:
+		out, err := call.ReturnListStream(ctx)
+		if err != nil {
+			return err
 		}
-		return call.ReturnValue(ctx, nu.Value{Value: string(buf)})
+		defer close(out)
+		for v := range in {
+			v, err := toPlistValue(v, outFmt, prettyFmt)
+			if err != nil {
+				return err
+			}
+			out <- v
+		}
+		return nil
 	default:
 		return fmt.Errorf("unsupported input type %T", call.Input)
 	}
+}
+
+func toPlistValue(v nu.Value, outFmt int, prettyFmt bool) (nu.Value, error) {
+	var buf []byte
+	var err error
+	if prettyFmt && outFmt != plist.BinaryFormat {
+		buf, err = plist.MarshalIndent(fromValue(v), outFmt, "\t")
+	} else {
+		buf, err = plist.Marshal(fromValue(v), outFmt)
+	}
+	if err != nil {
+		return nu.Value{}, fmt.Errorf("encoding %T as plist: %w", v.Value, err)
+	}
+	if outFmt == plist.BinaryFormat {
+		return nu.Value{Value: buf}, nil
+	}
+	return nu.Value{Value: string(buf)}, nil
 }
 
 func fromValue(v nu.Value) any {

@@ -3,7 +3,7 @@ module github.com/ainvaltin/nu_plugin_plist
 go 1.22.2
 
 require (
-	github.com/ainvaltin/nu-plugin v0.0.0-20240603193959-fc428cd7e55f
+	github.com/ainvaltin/nu-plugin v0.0.0-20240627145556-c7f1c61437df
 	howett.net/plist v1.0.1
 )
 
