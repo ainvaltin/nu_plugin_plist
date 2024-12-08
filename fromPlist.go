@@ -15,9 +15,9 @@ func fromPlist() *nu.Command {
 		Signature: nu.PluginSignature{
 			Name:                 "from plist",
 			Category:             "Formats",
+			Desc:                 `Convert from 'property list' format to Nushell Value.`,
 			SearchTerms:          []string{"plist", "GNU Step", "Open Step", "xml"},
 			InputOutputTypes:     [][]string{{"Binary", "Any"}, {"String", "Any"}},
-			Usage:                `Convert from 'property list' format to Nushell Value.`,
 			AllowMissingExamples: true,
 		},
 		Examples: nu.Examples{

@@ -8,6 +8,7 @@ import (
 	"howett.net/plist"
 
 	"github.com/ainvaltin/nu-plugin"
+	"github.com/ainvaltin/nu-plugin/syntaxshape"
 )
 
 func toPlist() *nu.Command {
@@ -15,11 +16,11 @@ func toPlist() *nu.Command {
 		Signature: nu.PluginSignature{
 			Name:             "to plist",
 			Category:         "Formats",
-			Usage:            `Convert Nushell Value to property list.`,
+			Desc:             `Convert Nushell Value to property list.`,
 			SearchTerms:      []string{"plist", "GNU Step", "Open Step", "xml"},
 			InputOutputTypes: [][]string{{"Any", "Binary"}, {"Any", "String"}},
 			Named: []nu.Flag{
-				{Long: "format", Short: "f", Arg: "String", Default: &nu.Value{Value: "bin"}, Desc: "Which plist format to use: xml, gnu[step], open[step]. Any other value will mean that binary format will be used."},
+				{Long: "format", Short: "f", Shape: syntaxshape.String(), Default: &nu.Value{Value: "bin"}, Desc: "Which plist format to use: xml, gnu[step], open[step]. Any other value will mean that binary format will be used."},
 				{Long: "pretty", Short: "p", Desc: "If this switch is set output is 'pretty printed'. Only makes sense with text based formats, ignored for binary."},
 			},
 			AllowMissingExamples: true,
@@ -34,8 +35,8 @@ func toPlist() *nu.Command {
 }
 
 func toPlistHandler(ctx context.Context, call *nu.ExecCommand) error {
-	outFmt := plistFormat(call.Named)
-	prettyFmt := prettyFormat(call.Named)
+	outFmt := plistFormat(call)
+	prettyFmt := prettyFormat(call)
 
 	switch in := call.Input.(type) {
 	case nil:
@@ -100,8 +101,9 @@ func fromValue(v nu.Value) any {
 	return v.Value
 }
 
-func plistFormat(flags nu.NamedParams) int {
-	switch strings.ToLower(flags.StringValue("format", "binary")) {
+func plistFormat(call *nu.ExecCommand) int {
+	v, _ := call.FlagValue("format")
+	switch strings.ToLower(v.Value.(string)) {
 	case "xml":
 		return plist.XMLFormat
 	case "gnu", "gnustep":
@@ -113,7 +115,7 @@ func plistFormat(flags nu.NamedParams) int {
 	}
 }
 
-func prettyFormat(flags nu.NamedParams) bool {
-	_, ok := flags["pretty"]
-	return ok
+func prettyFormat(call *nu.ExecCommand) bool {
+	v, _ := call.FlagValue("pretty")
+	return v.Value.(bool)
 }

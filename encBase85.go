@@ -14,9 +14,9 @@ func encodeBase85() *nu.Command {
 	return &nu.Command{
 		Signature: nu.PluginSignature{
 			Name:             "encode base85",
-			Category:         "Hash",
-			Usage:            `Encode binary as Ascii85, also called Base85.`,
-			UsageEx:          `Implements the ascii85 data encoding as used in the btoa tool and Adobe's PostScript and PDF document formats.`,
+			Category:         "Formats",
+			Desc:             `Encode binary as Ascii85, also called Base85.`,
+			Description:      `Implements the ascii85 data encoding as used in the btoa tool and Adobe's PostScript and PDF document formats.`,
 			SearchTerms:      []string{"Ascii85", "Base85"},
 			InputOutputTypes: [][]string{{"Binary", "String"}, {"String", "String"}},
 			/*Named: []nu.Flag{
