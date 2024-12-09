@@ -8,6 +8,7 @@ import (
 	"io"
 
 	"github.com/ainvaltin/nu-plugin"
+	"github.com/ainvaltin/nu-plugin/types"
 )
 
 func encodeBase85() *nu.Command {
@@ -18,7 +19,7 @@ func encodeBase85() *nu.Command {
 			Desc:             `Encode binary as Ascii85, also called Base85.`,
 			Description:      `Implements the ascii85 data encoding as used in the btoa tool and Adobe's PostScript and PDF document formats.`,
 			SearchTerms:      []string{"Ascii85", "Base85"},
-			InputOutputTypes: [][]string{{"Binary", "String"}, {"String", "String"}},
+			InputOutputTypes: []nu.InOutTypes{{In: types.Binary(), Out: types.String()}, {In: types.String(), Out: types.String()}},
 			/*Named: []nu.Flag{
 				{Long: "add-markers", Short: "m", Desc: "wrap output in <~ and ~> symbols"},
 			},*/

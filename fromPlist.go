@@ -8,6 +8,7 @@ import (
 	"howett.net/plist"
 
 	"github.com/ainvaltin/nu-plugin"
+	"github.com/ainvaltin/nu-plugin/types"
 )
 
 func fromPlist() *nu.Command {
@@ -17,7 +18,7 @@ func fromPlist() *nu.Command {
 			Category:             "Formats",
 			Desc:                 `Convert from 'property list' format to Nushell Value.`,
 			SearchTerms:          []string{"plist", "GNU Step", "Open Step", "xml"},
-			InputOutputTypes:     [][]string{{"Binary", "Any"}, {"String", "Any"}},
+			InputOutputTypes:     []nu.InOutTypes{{In: types.Binary(), Out: types.Any()}, {In: types.String(), Out: types.Any()}},
 			AllowMissingExamples: true,
 		},
 		Examples: nu.Examples{

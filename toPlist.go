@@ -9,6 +9,7 @@ import (
 
 	"github.com/ainvaltin/nu-plugin"
 	"github.com/ainvaltin/nu-plugin/syntaxshape"
+	"github.com/ainvaltin/nu-plugin/types"
 )
 
 func toPlist() *nu.Command {
@@ -18,7 +19,7 @@ func toPlist() *nu.Command {
 			Category:         "Formats",
 			Desc:             `Convert Nushell Value to property list.`,
 			SearchTerms:      []string{"plist", "GNU Step", "Open Step", "xml"},
-			InputOutputTypes: [][]string{{"Any", "Binary"}, {"Any", "String"}},
+			InputOutputTypes: []nu.InOutTypes{{In: types.Any(), Out: types.Binary()}, {In: types.Any(), Out: types.String()}},
 			Named: []nu.Flag{
 				{Long: "format", Short: "f", Shape: syntaxshape.String(), Default: &nu.Value{Value: "bin"}, Desc: "Which plist format to use: xml, gnu[step], open[step]. Any other value will mean that binary format will be used."},
 				{Long: "pretty", Short: "p", Desc: "If this switch is set output is 'pretty printed'. Only makes sense with text based formats, ignored for binary."},

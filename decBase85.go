@@ -8,6 +8,7 @@ import (
 	"io"
 
 	"github.com/ainvaltin/nu-plugin"
+	"github.com/ainvaltin/nu-plugin/types"
 )
 
 func decodeBase85() *nu.Command {
@@ -19,7 +20,7 @@ func decodeBase85() *nu.Command {
 			Description: `Implements the ascii85 data encoding as used in the btoa tool and Adobe's PostScript and PDF document formats.` +
 				"\n\nIf the decoded data is binary (not printable) then add 'into binary' to the pipeline ie '... decode base85 | into binary'",
 			SearchTerms:      []string{"Ascii85", "Base85"},
-			InputOutputTypes: [][]string{{"String", "Binary"}},
+			InputOutputTypes: []nu.InOutTypes{{In: types.String(), Out: types.Binary()}},
 			/*Named: []nu.Flag{
 				{Long: "trim-markers", Short: "m", Desc: "trim <~ and ~> symbols from the beginning and end of the data (if present)"},
 			},*/
