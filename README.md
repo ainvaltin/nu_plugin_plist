@@ -9,6 +9,7 @@ written in [Go](https://go.dev/) using
 
 - `to plist` and `from plist` - convert to and from [Property List](https://en.wikipedia.org/wiki/Property_list) format;
 - `encode base85` and `decode base85` - encode and decode [ascii85 / base85](https://en.wikipedia.org/wiki/Ascii85) encoded data;
+- `encode base58` and `decode base58`;
 
 Note that Nu has introduced `plist` support in version 0.97 of it's
 ["native" formats plugin](https://www.nushell.sh/commands/categories/formats.html).

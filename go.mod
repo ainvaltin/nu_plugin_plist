@@ -4,6 +4,7 @@ go 1.22.2
 
 require (
 	github.com/ainvaltin/nu-plugin v0.0.0-20241209154224-a4bc159463f9
+	github.com/mr-tron/base58 v1.2.0
 	howett.net/plist v1.0.1
 )
 

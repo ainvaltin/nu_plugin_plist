@@ -18,6 +18,8 @@ func main() {
 			fromPlist(),
 			encodeBase85(),
 			decodeBase85(),
+			encodeBase58(),
+			decodeBase58(),
 		},
 		"0.0.1",
 		nil,
