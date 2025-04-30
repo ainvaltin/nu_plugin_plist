@@ -1,5 +1,5 @@
-github.com/ainvaltin/nu-plugin v0.0.0-20241226195052-96fbed8a2696 h1:2cIEXc2NkA4cz67oiY2A5QAgpyaSLodBXmOBY0/ZWyA=
-github.com/ainvaltin/nu-plugin v0.0.0-20241226195052-96fbed8a2696/go.mod h1:s4OgRYFX7W78IQvByzIvv9wYWD0rJhWKGsDhNtCkAf4=
+github.com/ainvaltin/nu-plugin v0.0.0-20250427123007-8fc3e27cca3a h1:NB2pOjiuoeTivazUMFKSkM4B8g5pB3bZ0sNEQC1hIWA=
+github.com/ainvaltin/nu-plugin v0.0.0-20250427123007-8fc3e27cca3a/go.mod h1:zJPp4X2m5aiFlany4MEGyLf2QyHazLtkD37cgOyzVhY=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/google/go-cmp v0.6.0 h1:ofyhxvXcZhMsU5ulbFiLKl/XBFqE1GSq7atu8tAmTRI=
