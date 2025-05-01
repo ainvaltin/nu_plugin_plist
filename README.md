@@ -16,7 +16,7 @@ Note that Nu has introduced `plist` support in version 0.97 of it's
 
 ## Installation
 
-Latest version is for Nushell version `0.103.0`.
+Latest version is for Nushell version `0.104.0`.
 
 To install it you need to have [Go installed](https://go.dev/dl/), then run
 ```sh
