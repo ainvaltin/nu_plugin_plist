@@ -23,14 +23,14 @@ func decodeBase58() *nu.Command {
 			InputOutputTypes: []nu.InOutTypes{{In: types.String(), Out: types.Binary()}},
 			Named: []nu.Flag{{
 				Long:    "alphabet",
-				Short:   "a",
+				Short:   'a',
 				Shape:   syntaxshape.String(),
 				Default: &nu.Value{Value: "btc"},
 				Desc:    "Alphabet to use, must be 58 characters long. There is two shorthand values:\n\t - BTC: use the bitcoin base58 alphabet;\n\t - flickr: use the Flickr base58 alphabet;",
 			}},
 			AllowMissingExamples: true,
 		},
-		Examples: nu.Examples{
+		Examples: []nu.Example{
 			{Description: `Decode base58 data`, Example: `'2tdRS31QBvroH' | decode base58 -a flickr`, Result: &nu.Value{Value: `some data`}},
 		},
 		OnRun: decodeBase58Handler,

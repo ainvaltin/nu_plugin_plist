@@ -21,12 +21,12 @@ func toPlist() *nu.Command {
 			SearchTerms:      []string{"plist", "GNU Step", "Open Step", "xml"},
 			InputOutputTypes: []nu.InOutTypes{{In: types.Any(), Out: types.Binary()}, {In: types.Any(), Out: types.String()}},
 			Named: []nu.Flag{
-				{Long: "format", Short: "f", Shape: syntaxshape.String(), Default: &nu.Value{Value: "bin"}, Desc: "Which plist format to use: xml, gnu[step], open[step]. Any other value will mean that binary format will be used."},
-				{Long: "pretty", Short: "p", Desc: "If this switch is set output is 'pretty printed'. Only makes sense with text based formats, ignored for binary."},
+				{Long: "format", Short: 'f', Shape: syntaxshape.String(), Default: &nu.Value{Value: "bin"}, Desc: "Which plist format to use: xml, gnu[step], open[step]. Any other value will mean that binary format will be used."},
+				{Long: "pretty", Short: 'p', Desc: "If this switch is set output is 'pretty printed'. Only makes sense with text based formats, ignored for binary."},
 			},
 			AllowMissingExamples: true,
 		},
-		Examples: nu.Examples{
+		Examples: []nu.Example{
 			{Description: `Convert an record to GNU Step format`, Example: `{foo: 10} | to plist -f gnu`, Result: &nu.Value{Value: `{foo=<*I10>;}`}},
 			{Description: `Convert an array to Open Step format`, Example: `[10 foo] | to plist -f open`, Result: &nu.Value{Value: `(10,foo,)`}},
 		},

@@ -25,7 +25,7 @@ func encodeBase85() *nu.Command {
 			},*/
 			AllowMissingExamples: true,
 		},
-		Examples: nu.Examples{
+		Examples: []nu.Example{
 			{Description: `Convert binary to base85`, Example: `0x[0102030405] | encode base85`, Result: &nu.Value{Value: `!<N?+"T`}},
 			{Description: `Convert an string to base85`, Example: `'Some Data' | encode base85`, Result: &nu.Value{Value: `;f?Ma+@KX[@/`}},
 		},

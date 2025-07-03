@@ -21,7 +21,7 @@ func fromPlist() *nu.Command {
 			InputOutputTypes:     []nu.InOutTypes{{In: types.Binary(), Out: types.Any()}, {In: types.String(), Out: types.Any()}},
 			AllowMissingExamples: true,
 		},
-		Examples: nu.Examples{
+		Examples: []nu.Example{
 			{
 				Description: `Convert an Open Step array to list of Nu values`,
 				Example:     `'(10,foo,)' | from plist`,

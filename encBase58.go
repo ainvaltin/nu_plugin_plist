@@ -26,14 +26,14 @@ func encodeBase58() *nu.Command {
 			},
 			Named: []nu.Flag{{
 				Long:    "alphabet",
-				Short:   "a",
+				Short:   'a',
 				Shape:   syntaxshape.String(),
 				Default: &nu.Value{Value: "btc"},
 				Desc:    "Alphabet to use, must be 58 characters long. There is two shorthand values:\n\t - BTC: use the bitcoin base58 alphabet;\n\t - flickr: use the Flickr base58 alphabet;",
 			}},
 			AllowMissingExamples: true,
 		},
-		Examples: nu.Examples{
+		Examples: []nu.Example{
 			{Description: `Encode data as base58`, Example: `'some data' | encode base58 -a flickr`, Result: &nu.Value{Value: `2tdRS31QBvroH`}},
 		},
 		OnRun: encodeBase58Handler,

@@ -26,7 +26,7 @@ func decodeBase85() *nu.Command {
 			},*/
 			AllowMissingExamples: true,
 		},
-		Examples: nu.Examples{
+		Examples: []nu.Example{
 			{Description: `Decode base85 data`, Example: `'F)Po,+Cno&@/' | decode base85`, Result: &nu.Value{Value: `some data`}},
 		},
 		OnRun: decodeBase85Handler,
