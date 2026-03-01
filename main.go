@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"os/signal"
 	"syscall"
@@ -22,7 +23,7 @@ func main() {
 			decodeBase58(),
 		},
 		"0.0.1",
-		nil,
+		debugCfg(),
 	)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, "failed to create plugin", err)
@@ -45,4 +46,24 @@ func quitSignalContext() context.Context {
 	}()
 
 	return ctx
+}
+
+func debugCfg() *nu.Config {
+	fIn, err := os.Create("/Users/ain/go/src/nu_plugin_plist/input.log")
+	if err != nil {
+		panic(err)
+	}
+	fOut, err := os.Create("/Users/ain/go/src/nu_plugin_plist/output.log")
+	if err != nil {
+		panic(err)
+	}
+	fLog, err := os.Create("/Users/ain/go/src/nu_plugin_plist/log.txt")
+	if err != nil {
+		panic(err)
+	}
+	return &nu.Config{
+		Logger:   slog.New(slog.NewTextHandler(fLog, &slog.HandlerOptions{Level: slog.LevelDebug})),
+		SniffIn:  fIn,
+		SniffOut: fOut,
+	}
 }
