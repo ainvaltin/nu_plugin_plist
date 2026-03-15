@@ -9,7 +9,6 @@ import (
 	"github.com/mr-tron/base58"
 
 	"github.com/ainvaltin/nu-plugin"
-	"github.com/ainvaltin/nu-plugin/syntaxshape"
 	"github.com/ainvaltin/nu-plugin/types"
 )
 
@@ -20,14 +19,10 @@ func decodeBase58() *nu.Command {
 			Category:         "Formats",
 			Desc:             `Decode base58 encoded data.`,
 			SearchTerms:      []string{"base58"},
-			InputOutputTypes: []nu.InOutTypes{{In: types.String(), Out: types.Binary()}},
-			Named: []nu.Flag{{
-				Long:    "alphabet",
-				Short:   'a',
-				Shape:   syntaxshape.String(),
-				Default: &nu.Value{Value: "btc"},
-				Desc:    "Alphabet to use, must be 58 characters long. There is two shorthand values:\n\t - BTC: use the bitcoin base58 alphabet;\n\t - flickr: use the Flickr base58 alphabet;",
-			}},
+			InputOutputTypes: []nu.InOutTypes{{In: types.String(), Out: types.OneOf(types.Binary(), types.String())}},
+			Named: []nu.Flag{
+				base58AlphabetFlag(),
+			},
 			AllowMissingExamples: true,
 		},
 		Examples: []nu.Example{
@@ -38,7 +33,10 @@ func decodeBase58() *nu.Command {
 }
 
 func decodeBase58Handler(ctx context.Context, call *nu.ExecCommand) error {
-	alphabet := base58alphabet(call)
+	alphabet, err := base58alphabet(call)
+	if err != nil {
+		return err
+	}
 
 	var buf string
 	switch in := call.Input.(type) {
