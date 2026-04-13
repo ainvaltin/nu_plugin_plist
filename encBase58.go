@@ -93,7 +93,7 @@ func base58AlphabetFlag() nu.Flag {
 		Shape:   syntaxshape.String(),
 		Default: &nu.Value{Value: "btc"},
 		Desc:    "Alphabet to use, must be 58 characters long. There is three shorthand values:\n\t - flickr: use the Flickr base58 alphabet;\n\t - XRP: use the XRP Ledger alphabet;\n\t - BTC: use the bitcoin base58 alphabet;",
-		GetCompletions: func() []nu.DynamicSuggestion {
+		Completions: nu.DynamicCompletion(func() []nu.DynamicSuggestion {
 			ra := []byte("rpshnaf39wBUDNEGHJKLM4PQRST7VWXYZ2bcdeCg65jkm8oFqi1tuvAxyz")
 			rand.Shuffle(len(ra), func(i, j int) { ra[i], ra[j] = ra[j], ra[i] })
 			return []nu.DynamicSuggestion{
@@ -102,6 +102,6 @@ func base58AlphabetFlag() nu.Flag {
 				{Value: "XRP", Display: "the XPR Ledger alphabet"},
 				{Value: string(ra), Display: "random alphabet"},
 			}
-		},
+		}),
 	}
 }

@@ -22,18 +22,12 @@ func toPlist() *nu.Command {
 			InputOutputTypes: []nu.InOutTypes{{In: types.Any(), Out: types.OneOf(types.Binary(), types.String())}},
 			Named: []nu.Flag{
 				{
-					Long:    "format",
-					Short:   'f',
-					Shape:   syntaxshape.String(),
-					Default: &nu.Value{Value: "bin"},
-					Desc:    "Which plist format to use: xml, gnu[step], open[step]. Any other value will mean that binary format will be used.",
-					GetCompletions: func() []nu.DynamicSuggestion {
-						return []nu.DynamicSuggestion{
-							{Value: "gnustep", AppendWhitespace: true},
-							{Value: "openstep", AppendWhitespace: true},
-							{Value: "xml", AppendWhitespace: true},
-						}
-					},
+					Long:        "format",
+					Short:       'f',
+					Shape:       syntaxshape.String(),
+					Default:     &nu.Value{Value: "bin"},
+					Desc:        "Which plist format to use: xml, gnu[step], open[step]. Any other value will mean that binary format will be used.",
+					Completions: nu.StaticCompletions{"gnustep", "openstep", "xml"},
 				},
 				{Long: "pretty", Short: 'p', Desc: "If this switch is set output is 'pretty printed'. Only makes sense with text based formats, ignored for binary."},
 			},
